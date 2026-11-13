@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card shadow p-4">
+
+    <h2>Welcome, {{ user.first_name|default:user.username }}!</h2>
+
+    <p class="text-muted">
+        Welcome to your Citconnect dashboard.
+    </p>
+
+    <div class="row mt-3">
+
+        <div class="col-md-4">
+            <div class="card bg-primary text-white p-3 mb-3">
+                <h5>Role</h5>
+                <h4>{{ user.get_role_display }}</h4>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-success text-white p-3 mb-3">
+                <h5>Course</h5>
+                <h4>{{ user.course|default:"Not set" }}</h4>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-info text-white p-3 mb-3">
+                <h5>Total Members</h5>
+                <h4>{{ member_count }}</h4>
+            </div>
+        </div>
+
+    </div>
+
+    <p>
+        Last login: {{ user.last_login|date:"M d, Y" }}
+    </p>
+
+    {% if is_admin %}
+        <a href="{% url 'admin_panel' %}" class="btn btn-warning">
+            Open Admin Panel
+        </a>
+    {% endif %}
+
+</div>
+
+{% endblock %}
