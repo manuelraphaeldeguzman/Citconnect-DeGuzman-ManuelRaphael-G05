@@ -10,6 +10,9 @@ from django.contrib.auth.views import LoginView
 
 from .models import CustomUser
 from .profile_forms import ProfileUpdateForm
+
+from django.shortcuts import redirect
+from django.views.generic import TemplateView
 # Create your views here.
 
 class SignUpView(CreateView):
@@ -44,3 +47,14 @@ class StyledLoginView(LoginView):
             })
 
         return form
+
+class RoleRedirectView(LoginRequiredMixin, TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        if request.user.role == CustomUser.Role.STUDENT:
+            return redirect("dashboard")
+
+        elif request.user.role == CustomUser.Role.STAFF:
+            return redirect("admin_panel")
+
+        return redirect("login")
