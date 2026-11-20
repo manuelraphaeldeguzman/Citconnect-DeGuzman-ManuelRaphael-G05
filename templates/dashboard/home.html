@@ -39,7 +39,7 @@
         Last login: {{ user.last_login|date:"M d, Y" }}
     </p>
 
-    {% if is_admin %}
+    {% if is_staff %}
         <a href="{% url 'admin_panel' %}" class="btn btn-warning">
             Open Admin Panel
         </a>
