@@ -48,13 +48,24 @@ class StyledLoginView(LoginView):
 
         return form
 
-class RoleRedirectView(LoginRequiredMixin, TemplateView):
 
-    def get(self, request, *args, **kwargs):
-        if request.user.role == CustomUser.Role.STUDENT:
-            return redirect("dashboard")
+class StyledLoginView(LoginView):
 
-        elif request.user.role == CustomUser.Role.STAFF:
-            return redirect("admin_panel")
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
 
-        return redirect("login")
+        for field in form.fields.values():
+            field.widget.attrs.update({
+                "class": "form-control"
+            })
+
+        return form
+
+    def get_success_url(self):
+        if self.request.user.role == CustomUser.Role.STUDENT:
+            return reverse_lazy("dashboard")
+
+        elif self.request.user.role == CustomUser.Role.STAFF:
+            return reverse_lazy("admin_panel")
+
+        return super().get_success_url()
