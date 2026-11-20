@@ -48,19 +48,6 @@ class StyledLoginView(LoginView):
 
         return form
 
-
-class StyledLoginView(LoginView):
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-
-        for field in form.fields.values():
-            field.widget.attrs.update({
-                "class": "form-control"
-            })
-
-        return form
-
     def get_success_url(self):
         if self.request.user.role == CustomUser.Role.STUDENT:
             return reverse_lazy("dashboard")
