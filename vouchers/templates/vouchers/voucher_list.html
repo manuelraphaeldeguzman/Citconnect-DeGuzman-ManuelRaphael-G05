@@ -1,0 +1,58 @@
+
+{% extends "base.html" %}
+
+{% block title %}Voucher Management{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Voucher Management</h2>
+        <a href="{% url 'voucher-create' %}" class="btn btn-primary">
+            Create Voucher
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    {% if vouchers %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Voucher Code</th>
+                        <th>Created By</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for voucher in vouchers %}
+                        <tr>
+                            <td>{{ voucher.voucher_code }}</td>
+                            <td>{{ voucher.created_by.user.username }}</td>
+                            <td>{{ voucher.created_at|date:"M d, Y" }}</td>
+                            <td>
+                                <a href="{% url 'voucher-update' voucher.pk %}"
+                                   class="btn btn-sm btn-warning">
+                                    Edit
+                                </a>
+
+                                <a href="{% url 'voucher-delete' voucher.pk %}"
+                                   class="btn btn-sm btn-danger">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No vouchers have been created yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
