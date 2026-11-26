@@ -101,3 +101,20 @@ class VoucherAssignmentDeleteView(StaffRequiredMixin, DeleteView):
     def form_valid(self, form):
         messages.success(self.request, "Voucher assignment deleted successfully!")
         return super().form_valid(form)
+    
+
+class StudentVoucherListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = VoucherAssignment
+    template_name = "vouchers/student_voucher_list.html"
+    context_object_name = "assignments"
+
+    def test_func(self):
+        return (
+            self.request.user.role == "STUDENT"
+            and hasattr(self.request.user, "student_profile")
+        )
+
+    def get_queryset(self):
+        return VoucherAssignment.objects.filter(
+            student=self.request.user.student_profile
+        ).select_related("voucher").order_by("-assigned_at")

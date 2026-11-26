@@ -10,5 +10,5 @@ urlpatterns = [
     path("assignments/create/", views.VoucherAssignmentCreateView.as_view(), name="assignment-create"),
     path("assignments/<int:pk>/edit/", views.VoucherAssignmentUpdateView.as_view(), name="assignment-update"),
     path("assignments/<int:pk>/delete/", views.VoucherAssignmentDeleteView.as_view(), name="assignment-delete"),
-
+    path("my-vouchers/", views.StudentVoucherListView.as_view(), name="student-vouchers"),
 ]
