@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Voucher Assignments</h2>
+        <a href="{% url 'assignment-create' %}" class="btn btn-primary">
+            Assign Voucher
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    {% if assignments %}
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Voucher Code</th>
+                        <th>Student</th>
+                        <th>Assigned By</th>
+                        <th>Date Assigned</th>
+                        <th>Expiration Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assignment in assignments %}
+                        <tr>
+                            <td>{{ assignment.voucher.voucher_code }}</td>
+                            <td>{{ assignment.student.user.username }}</td>
+                            <td>{{ assignment.assigned_by.user.username }}</td>
+                            <td>{{ assignment.assigned_at|date:"M d, Y" }}</td>
+                            <td>{{ assignment.expiration_date|date:"M d, Y" }}</td>
+                            <td>{{ assignment.get_status_display }}</td>
+                            <td>
+                                <a href="{% url 'assignment-update' assignment.pk %}"
+                                   class="btn btn-sm btn-warning">Edit</a>
+                                <a href="{% url 'assignment-delete' assignment.pk %}"
+                                   class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No voucher assignments found.</p>
+    {% endif %}
+</div>
+{% endblock %}
