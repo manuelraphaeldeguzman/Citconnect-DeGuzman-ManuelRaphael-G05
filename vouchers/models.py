@@ -27,10 +27,10 @@ class VoucherAssignment(models.Model):
 
     assignment_id = models.AutoField(primary_key=True)
 
-    voucher = models.ForeignKey(
+    voucher = models.OneToOneField(
         Voucher,
         on_delete=models.CASCADE,
-        related_name="assignments"
+        related_name="assignment"
     )
 
     student = models.ForeignKey(
