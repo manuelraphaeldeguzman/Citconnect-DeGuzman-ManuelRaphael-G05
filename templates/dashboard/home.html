@@ -39,6 +39,14 @@
         Last login: {{ user.last_login|date:"M d, Y" }}
     </p>
 
+    <div class="mt-4">
+        <h5>Student Services</h5>
+
+        <a href="{% url 'student-vouchers' %}" class="btn btn-primary">
+            My Wi-Fi Vouchers
+        </a>
+    </div>
+
     {% if is_staff %}
         <a href="{% url 'admin_panel' %}" class="btn btn-warning">
             Open Admin Panel

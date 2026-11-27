@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Voucher Assignment Form{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow p-4">
+        <h2>
+            {% if object %}
+                Edit Voucher Assignment
+            {% else %}
+                Assign Voucher
+            {% endif %}
+        </h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="btn btn-primary">
+                Save Assignment
+            </button>
+
+            <a href="{% url 'assignment-list' %}" class="btn btn-secondary">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock %}

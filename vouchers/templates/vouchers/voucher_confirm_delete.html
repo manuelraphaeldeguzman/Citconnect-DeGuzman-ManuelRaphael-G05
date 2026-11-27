@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Voucher{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow p-4">
+        <h2>Delete Voucher</h2>
+
+        <p>
+            Are you sure you want to delete voucher
+            <strong>{{ object.voucher_code }}</strong>?
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <button type="submit" class="btn btn-danger">
+                Confirm Delete
+            </button>
+
+            <a href="{% url 'voucher-list' %}" class="btn btn-secondary">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock %}
