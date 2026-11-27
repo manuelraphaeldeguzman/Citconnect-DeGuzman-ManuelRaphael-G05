@@ -7,3 +7,5 @@ urlpatterns = [
     path("", include("dashboard.urls")),
     path("vouchers/", include("vouchers.urls")),
 ]
+handler404 = "citconnect.views.custom_404"
+handler500 = "citconnect.views.custom_500"
