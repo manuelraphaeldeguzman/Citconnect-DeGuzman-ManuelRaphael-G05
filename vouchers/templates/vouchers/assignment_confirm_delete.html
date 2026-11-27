@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Voucher Assignment{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow p-4">
+        <h2>Delete Voucher Assignment</h2>
+
+        <p>
+            Are you sure you want to delete the assignment of
+            <strong>{{ object.voucher.voucher_code }}</strong>
+            to
+            <strong>{{ object.student.user.username }}</strong>?
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <button type="submit" class="btn btn-danger">
+                Confirm Delete
+            </button>
+
+            <a href="{% url 'assignment-list' %}" class="btn btn-secondary">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock %}

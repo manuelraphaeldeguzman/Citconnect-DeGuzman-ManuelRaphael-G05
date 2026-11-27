@@ -1,0 +1,42 @@
+
+{% extends "base.html" %}
+
+{% block title %}My Vouchers{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-primary mb-3">My Wi-Fi Vouchers</h2>
+
+    <p>Here you can view the Wi-Fi vouchers assigned to your account.</p>
+
+    {% if assignments %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Voucher Code</th>
+                        <th>Date Assigned</th>
+                        <th>Expiration Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for assignment in assignments %}
+                        <tr>
+                            <td>{{ assignment.voucher.voucher_code }}</td>
+                            <td>{{ assignment.assigned_at|date:"M d, Y" }}</td>
+                            <td>{{ assignment.expiration_date|date:"M d, Y" }}</td>
+                            <td>{{ assignment.get_status_display }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            You don't have any Wi-Fi vouchers assigned yet.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
